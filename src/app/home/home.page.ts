@@ -7,6 +7,21 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  currentDate: string;
+
+  constructor() {
+    this.currentDate = this.formatDate(new Date());
+  }
+
+  formatDate(date: Date): string {
+
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+    };
+    return new Intl.DateTimeFormat('es-ES', options).format(date);
+  }
 
 }

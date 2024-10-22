@@ -25,3 +25,38 @@
 #container a {
   text-decoration: none;
 }
+.no-padding-grid {
+  padding: 0 !important;
+}
+
+.no-padding-row {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.no-padding-col {
+  padding: 0 !important;
+}
+
+.custom-item {
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.small-item {
+  padding: 5px !important; /* Reducción del padding */
+  height: 80px; /* Ajuste de la altura del item */
+}
+
+.custom-item h6 {
+  margin: 0;
+  font-size: 12px; /* Reducir tamaño de la fuente */
+  font-weight: bold;
+}
+
+.custom-item p {
+  margin: 0;
+  font-size: 10px; /* Reducir tamaño del texto */
+  color: #666;
+}
