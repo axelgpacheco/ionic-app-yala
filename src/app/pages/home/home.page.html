@@ -9,7 +9,12 @@
           <h6 class="custom-title">{{ currentDate }}</h6>
         </ion-col>
         <ion-col size="3" class="ion-text-center">
-          <ion-icon name="person" size="small"></ion-icon>
+          <ion-chip (click)="presentActionSheet()">
+            <ion-avatar>
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label> Jose </ion-label>
+          </ion-chip>
         </ion-col>
       </ion-row>
     </ion-grid>

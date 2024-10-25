@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
-import { TabsPage } from './tabs.page';
 
 @NgModule({
   imports: [
@@ -16,6 +15,5 @@ import { TabsPage } from './tabs.page';
     TabsPageRoutingModule,
     IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel
   ],
-  declarations: [TabsPage]
 })
 export class TabsPageModule {}

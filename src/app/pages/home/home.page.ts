@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { library, playCircle, radio, search } from 'ionicons/icons';
-import { IonicModule } from '@ionic/angular';
+import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,10 @@ import { IonicModule } from '@ionic/angular';
 export class HomePage {
   currentDate: string;
 
-  constructor() {
+  constructor(private actionSheetController: ActionSheetController, private router: Router) {
     this.currentDate = this.formatDate(new Date());
 
-      addIcons({ library, playCircle, radio, search });
+    addIcons({ library, playCircle, radio, search });
 
   }
 
@@ -31,5 +32,36 @@ export class HomePage {
     return new Intl.DateTimeFormat('es-ES', options).format(date);
   }
 
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones de Usuario',
+      buttons: [
+        {
+          text: 'Ajustes de Usuario',
+          icon: 'settings',
+          handler: () => {
+
+          },
+        },
+        {
+          text: 'Cerrar Sesión',
+          icon: 'log-out',
+          handler: () => {
+            this.logout();
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 
 }
