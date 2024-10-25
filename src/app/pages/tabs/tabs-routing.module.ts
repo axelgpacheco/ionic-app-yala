@@ -18,11 +18,11 @@ const routes: Routes = [
       },
       {
         path: 'categoria',
-        loadComponent: () => import('../categoria/categoria.page').then( m => m.CategoriaPage)
+        loadComponent: () => import('../categoria/categoria.page').then(m => m.CategoriaPage)
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: 'home',
         pathMatch: 'full'
       }
     ]

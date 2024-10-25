@@ -17,26 +17,27 @@
           </ion-chip>
         </ion-col>
       </ion-row>
+      <!-- Fijo el ion-segment para selección -->
+      <ion-segment [(ngModel)]="selectedTab" (ionChange)="navigateTo(selectedTab)">
+        <ion-segment-button value="gastos">
+          Gastos
+        </ion-segment-button>
+        <ion-segment-button value="ingresos">
+          Ingresos
+        </ion-segment-button>
+      </ion-segment>
     </ion-grid>
+
   </ion-toolbar>
 </ion-header>
 
 
-
-<ion-content>
-  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="gastos">
-      Gastos
-    </ion-segment-button>
-    <ion-segment-button value="ingresos">
-      Ingresos
-    </ion-segment-button>
-  </ion-segment>
-
-  <ng-container *ngIf="selectedSegment === 'gastos'">
+<ion-content [fullscreen]="true">
+  <!-- Componente dinámico basado en la pestaña seleccionada -->
+  <ng-container *ngIf="selectedTab === 'gastos'">
     <app-gastos></app-gastos>
   </ng-container>
-  <ng-container *ngIf="selectedSegment === 'ingresos'">
+  <ng-container *ngIf="selectedTab === 'ingresos'">
     <app-ingresos></app-ingresos>
   </ng-container>
 </ion-content>

@@ -1,7 +1,18 @@
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">gastos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="gastos-identification">
+    <h2>Información de Gastos</h2>
+    <p>Aquí puedes ver y gestionar todos tus gastos.</p>
+  </div>
+  <div class="gastos-list">
+    <ion-list>
+      <ion-item *ngFor="let gasto of gastos">
+        <ion-label>
+          <h2>{{ gasto.descripcion }}</h2>
+          <p>Monto: {{ gasto.monto | currency }}</p>
+          <p>Fecha: {{ gasto.fecha | date }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
