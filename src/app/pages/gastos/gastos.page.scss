@@ -1,1 +1,41 @@
- 
+
+.card-img {
+  width: 80%;
+  height: auto;
+  max-height: 100px;
+  display: block;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+.custom-grid {
+  padding: 0;
+}
+
+.custom-row {
+  --ion-grid-column-padding: 0;
+}
+
+.custom-col {
+  padding: 2px;
+}
+
+.custom-card {
+  margin: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.card-text {
+  text-align: center;
+}

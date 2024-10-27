@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title  size="small"> Nuevo Registro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="modal-content">
+
+    <div class="image-container">
+      <img [src]="ingreso.url" alt="Imagen de Gasto" />
+    </div>
+
+    <h2>{{ ingreso.descripcion }}</h2>
+
+    <ion-item>
+      <ion-label position="stacked">Cantidad</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="cantidad"
+        placeholder="Ingresa una cantidad"
+        required>
+      </ion-input>
+    </ion-item>
+
+    <div class="button-container">
+      <ion-button expand="full" (click)="guardarCantidad()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Cantidad
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

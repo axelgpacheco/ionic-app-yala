@@ -1,17 +1,16 @@
-
 <ion-content class="ion-padding" fullscreen>
-  <div class="login-container">
+  <div class="register-container">
     <div class="overlay-text">
       <h2 class="yala">YALA</h2>
       <span class="gastos-diarios">GASTOS DIARIOS</span>
     </div>
 
     <div class="image-container">
-      <img src="./../../../assets/monedero.png" alt="Google Login" class="login-image" />
+      <img src="./../../../assets/monedero.png" alt="Registro de Usuario" class="register-image" />
     </div>
     <div class="divider"> </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <ion-item class="email-input" lines="none">
         <ion-label position="floating">Correo Electrónico</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
@@ -22,25 +21,19 @@
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
 
-      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
-        Iniciar Sesión
+      <ion-item class="confirm-password-input" lines="none">
+        <ion-label position="floating">Confirmar Contraseña</ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">
+        Registrarse
       </ion-button>
     </form>
 
-    <div class="divider">
-      <span>OR</span>
-    </div>
-
-    <ion-button expand="block" fill="solid" class="google-login-button" (click)="loginWithGoogle()">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      Login with Google
-    </ion-button>
-
-    <p class="register-link">
-      ¿No tienes cuenta? <a (click)="navigateToRegister()">Regístrate aquí</a>
+    <p class="login-link">
+      ¿Ya tienes cuenta? <a (click)="navigateToLogin()">Inicia Sesión aquí</a>
     </p>
 
   </div>
 </ion-content>
-
-

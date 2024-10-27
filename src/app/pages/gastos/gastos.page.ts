@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { ModalRegistroComponent } from 'src/app/components/modal-registro/modal-registro.component';
 
 @Component({
   selector: 'app-gastos',
@@ -12,16 +13,21 @@ import { CommonModule } from '@angular/common';
 export class GastosPage{
 
   gastos: any[] = [
-    { descripcion: 'Compra de alimentos', monto: 50, fecha: new Date() },
-    { descripcion: 'Transporte', monto: 15, fecha: new Date() },
-    { descripcion: 'Cine', monto: 20, fecha: new Date() }
+    { descripcion: 'Agua' , url: './../../../assets/gastos/botella-de-agua.png'},
+    { descripcion: 'Luz', url: './../../../assets/gastos/luz.png'},
+    { descripcion: 'Comida' , url: './../../../assets/gastos/dieta.png'},
+    { descripcion: "Agregar" , url: './../../../assets/plus-1.png'}
   ];
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
-  agregarGasto() {
 
-    console.log('Agregar Gasto');
+  async onCardClick(ingreso: any) {
+    const modal = await this.modalController.create({
+      component: ModalRegistroComponent,
+      componentProps: { ingreso },
+    });
+    return await modal.present();
   }
 
 

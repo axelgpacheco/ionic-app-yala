@@ -4,7 +4,7 @@
   --font-family-ui: 'Rubik Wet Paint', sans-serif;
 }
 
-.login-container {
+.register-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,13 +39,15 @@ form {
 }
 
 .email-input ion-label,
-.password-input ion-label {
+.password-input ion-label,
+.confirm-password-input ion-label {
   color: #007bff;
   font-family: 'Rubik Wet Paint', sans-serif;
 }
 
 .email-input,
-.password-input {
+.password-input,
+.confirm-password-input {
   margin-bottom: 15px;
 }
 
@@ -85,20 +87,20 @@ form {
   justify-content: center;
   margin-top: 20px;
 
-  .login-image {
+  .register-image {
     width: 100px;
     height: auto;
   }
 }
 
-
-.register-link {
+.login-link {
   text-align: center;
   margin-top: 16px;
   font-size: 14px;
   color: var(--ion-color-medium);
 }
-.register-link a {
+
+.login-link a {
   color: var(--ion-color-primary);
   cursor: pointer;
 }
