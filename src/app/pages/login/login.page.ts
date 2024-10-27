@@ -25,15 +25,9 @@ export class LoginPage  {
     });
   }
 
-  async onLogin() {
-    const { email, password } = this.loginForm.value;
-
-    console.log(email, password);
-    this.router.navigate(['/pages/tabs/home']);
-  }
 
   loginWithGoogle() {
-    this.serviceAuth.loginWithGoogle()
+    this.serviceAuth.signInWithGoogle()
     .then((result) => {
       console.log(result);
       this.router.navigate(['/pages/tabs/home']);
@@ -46,4 +40,20 @@ export class LoginPage  {
   navigateToRegister() {
     this.router.navigate(['/register']);
   }
+
+  loginWithEmailAndPassword() {
+    
+    const { email, password } = this.loginForm.value;
+
+    this.serviceAuth.signInWithEmailAndPassword( email,password)
+    .then((result) => {
+      console.log(result);
+      this.router.navigate(['/pages/tabs/home']);
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    this.loginForm.reset();
+  }
+
 }

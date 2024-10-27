@@ -11,7 +11,7 @@
     </div>
     <div class="divider"> </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="loginForm" (ngSubmit)="loginWithEmailAndPassword()">
       <ion-item class="email-input" lines="none">
         <ion-label position="floating">Correo Electrónico</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>

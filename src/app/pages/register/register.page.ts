@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterPage {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router , private serviceAuth: AuthServiceService) {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,11 +32,23 @@ export class RegisterPage {
 
   onRegister() {
     if (this.registerForm.valid) {
-      console.log('Registro exitoso', this.registerForm.value);
+      const { email, password } = this.registerForm.value;
+       this.serviceAuth.createUser(email, password)
+       .then((result) => {
+          console.log(result);
+          this.router.navigate(['/pages/tabs/home']);
+       })
+       .catch((error) => {
+        console.log(error);
+       });        
     }
+    this.registerForm.reset();
   }
 
+  
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
+
+
 }
