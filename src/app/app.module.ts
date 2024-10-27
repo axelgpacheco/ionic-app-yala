@@ -18,7 +18,14 @@ import { environment } from 'src/environments/environment.prod';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicModule.forRoot()],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideDatabase(() => getDatabase()), provideMessaging(() => getMessaging()), providePerformance(() => getPerformance()), provideStorage(() => getStorage())],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
+    provideAuth(() => getAuth()),
+     provideFirestore(() => getFirestore()), 
+     provideDatabase(() => getDatabase()), 
+     provideMessaging(() => getMessaging()),
+      providePerformance(() => getPerformance()), 
+      provideStorage(() => getStorage())],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

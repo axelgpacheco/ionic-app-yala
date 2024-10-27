@@ -3,6 +3,8 @@ import { addIcons } from 'ionicons';
 import { library, playCircle, radio, search } from 'ionicons/icons';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { User } from 'src/app/common/models/User';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,10 @@ import { Router } from '@angular/router';
 export class HomePage {
   currentDate: string;
 
-  constructor(private actionSheetController: ActionSheetController, private router: Router) {
+  currentUser: User  | undefined;
+
+
+  constructor(private actionSheetController: ActionSheetController, private router: Router, private authService: AuthServiceService) {
     this.currentDate = this.formatDate(new Date());
 
     addIcons({ library, playCircle, radio, search });
@@ -61,6 +66,7 @@ export class HomePage {
 
 
   logout() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
