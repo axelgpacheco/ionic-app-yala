@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Component, inject, OnInit } from '@angular/core';
+import { Auth, GoogleAuthProvider } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,9 @@ export class LoginPage  {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: Auth, private router:Router) {
+  private authFirebase = inject(Auth);
+
+  constructor(private fb: FormBuilder, private auth: Auth, private router:Router , private serviceAuth: AuthServiceService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -32,7 +35,18 @@ export class LoginPage  {
 
 
   async loginWithGoogle() {
-    this.router.navigate(['/pages/tabs/home']);
+    
+    this.serviceAuth.loginWithGoogle().
+    then((response) => {
+      console.log(response)
+      this.router.navigate(['/pages/tabs/home']);
+    }).
+    catch((error) => {
+      console.log(error)
+    })
+
+
+
   }
 
 
