@@ -5,15 +5,15 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyDGZVb7kk31j2rCR00yOPUIZd__PKSmMDY",
-    authDomain: "yala-app-90a71.firebaseapp.com",
-    projectId: "yala-app-90a71",
-    storageBucket: "yala-app-90a71.appspot.com",
-    messagingSenderId: "399780973616",
-    appId: "1:399780973616:web:1f1b0e81d8c959338471f5",
-    measurementId: "G-NEMG3X6JRH"
-  }
-};
+    apiKey: "AIzaSyD4IvQiFpgSU39TSAbGfhODOeZ4ZZkrqPY",
+    authDomain: "yala-aplication.firebaseapp.com",
+    projectId: "yala-aplication",
+    storageBucket: "yala-aplication.appspot.com",
+    messagingSenderId: "618216134691",
+    appId: "1:618216134691:web:1960185a15e4328be53996",
+    measurementId: "G-LKCDHBKD54"
+}
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
@@ -22,4 +22,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+ 

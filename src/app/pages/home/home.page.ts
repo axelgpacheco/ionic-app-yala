@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { formatDate } from 'src/app/common/core/formatDate';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private authService: AuthServiceService
   ) {
-    this.currentDate = this.formatDate(new Date());
+    this.currentDate = formatDate(new Date());
     addIcons({ library, playCircle, radio, search });
   }
 
@@ -49,16 +50,6 @@ export class HomePage implements OnInit {
 
 
   
-  }
-
-  formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'long',
-    };
-    return new Intl.DateTimeFormat('es-ES', options).format(date);
   }
 
   async presentActionSheet() {

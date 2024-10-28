@@ -13,10 +13,10 @@ import { ModalRegistroComponent } from 'src/app/components/modal-registro/modal-
 export class GastosPage{
 
   gastos: any[] = [
-    { descripcion: 'Agua' , url: './../../../assets/gastos/botella-de-agua.png'},
-    { descripcion: 'Luz', url: './../../../assets/gastos/luz.png'},
-    { descripcion: 'Comida' , url: './../../../assets/gastos/dieta.png'},
-    { descripcion: "Agregar" , url: './../../../assets/plus-1.png'}
+    { descripcion: 'Agua' , url: './../../../assets/gastos/botella-de-agua.png', type: 'gasto'},
+    { descripcion: 'Luz', url: './../../../assets/gastos/luz.png' , type: 'gasto'},
+    { descripcion: 'Comida' , url: './../../../assets/gastos/dieta.png' , type: 'gasto'},
+    { descripcion: "Agregar" , url: './../../../assets/plus-1.png' , type: 'gasto'}
   ];
 
   constructor(private modalController: ModalController) {}
