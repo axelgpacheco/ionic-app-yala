@@ -29,7 +29,13 @@ export class LoginPage  {
   loginWithGoogle() {
     this.serviceAuth.signInWithGoogle()
     .then((result) => {
-      console.log(result);
+      if (result ) {
+        console.log(result);
+        this.router.navigate(['/pages/tabs/home']);
+      } else {
+        console.log('No user data found');
+      }
+      console.log('Usuario logueado con Google');
       this.router.navigate(['/pages/tabs/home']);
     })
     .catch((error) => {
