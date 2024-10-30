@@ -34,17 +34,16 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
 
-
     this.authService.getCurrentUser()
       .then(({ user }) => {
         if (user) {
           this.urlPhoto = user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg';
           this.displayName = user.displayName?.split(' ')[0] || 'Usuario'
-          console.log(user)
         } else {
           console.error('User is null');
         }
         console.log('user ->' + user);
+
       })
       .catch((error) => {
         console.error('Error obteniendo el usuario:', error);
@@ -78,5 +77,7 @@ export class HomePage implements OnInit {
     this.displayName = '';
     this.router.navigate(['/login']);
   }
+
+
 
 }

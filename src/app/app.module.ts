@@ -15,22 +15,39 @@ import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.prod';
 import { StoreModule } from '@ngrx/store';
+import { reducers } from './common/core/state/app-store.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicModule.forRoot(), StoreModule.forRoot({}, {})],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicModule.forRoot(),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
+    })
+  ],
   providers: [
-    { provide: RouteReuseStrategy, 
-      useClass: IonicRouteStrategy 
-    }, 
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
+    },
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()), 
-    provideDatabase(() => getDatabase()), 
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
     provideMessaging(() => getMessaging()),
-    providePerformance(() => getPerformance()), 
+    providePerformance(() => getPerformance()),
     provideStorage(() => getStorage())
-  
+
   ],
   bootstrap: [AppComponent],
 })

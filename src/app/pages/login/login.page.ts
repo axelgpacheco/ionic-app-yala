@@ -30,7 +30,9 @@ export class LoginPage  {
     this.serviceAuth.signInWithGoogle()
     .then((result) => {
       if (result ) {
+        this.getToken();
         console.log(result);
+
         this.router.navigate(['/pages/tabs/home']);
       } else {
         console.log('No user data found');
@@ -48,7 +50,7 @@ export class LoginPage  {
   }
 
   loginWithEmailAndPassword() {
-    
+
     const { email, password } = this.loginForm.value;
 
     this.serviceAuth.signInWithEmailAndPassword( email,password)
@@ -62,4 +64,13 @@ export class LoginPage  {
     this.loginForm.reset();
   }
 
+  getToken() {
+    this.serviceAuth.getToken().
+    then((token) => {
+      console.log(token);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 }

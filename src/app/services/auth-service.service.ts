@@ -74,4 +74,9 @@ export class AuthServiceService {
     return result;
   }
 
+  async getToken(): Promise<string | null> {
+    const user = this.auth.currentUser;
+    return user ? user.getIdToken() : null;
+  }
+
 }
