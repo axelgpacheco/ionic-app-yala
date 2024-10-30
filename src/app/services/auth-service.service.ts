@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, signInWithRedirect } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
-import { createUserWithEmailAndPassword , getRedirectResult, GoogleAuthProvider } from 'firebase/auth';
+import {  getRedirectResult } from 'firebase/auth';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
- 
+
   constructor(private auth: Auth) {}
-
-
 
   async signInWithGoogle() {
     const result = await FirebaseAuthentication.signInWithGoogle();
@@ -27,7 +25,7 @@ export class AuthServiceService {
     try {
       const result = await FirebaseAuthentication.createUserWithEmailAndPassword({email, password});
       console.log("Usuario registrado exitosamente:", result.user);
-      return result.user; 
+      return result.user;
     } catch (error) {
       if ((error as { code: string }).code === 'auth/email-already-in-use') {
         console.error("Este correo electrónico ya está en uso.");
@@ -61,10 +59,10 @@ export class AuthServiceService {
       }
       throw new Error("Hubo un problema al completar el inicio de sesión con Google.");
     }
-    return null; 
+    return null;
   }
 
- 
+
   async logout(){
     const result = await FirebaseAuthentication.signOut();
     return result;
@@ -75,5 +73,5 @@ export class AuthServiceService {
     const result = await FirebaseAuthentication.getCurrentUser();
     return result;
   }
-  
+
 }
