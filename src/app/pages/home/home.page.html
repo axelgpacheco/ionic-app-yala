@@ -8,7 +8,7 @@
           <ion-item lines="none" class="custom-item small-item">
             <ion-label>
               <h6>Gastos</h6>
-              <p>S./ 12.00</p>
+              <p>S./ {{ totalGastos | number:'1.2-2' }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -18,7 +18,7 @@
           <ion-item lines="none" class="custom-item small-item">
             <ion-label>
               <h6>Ingresos</h6>
-              <p>S./ 29.00</p>
+              <p>S./ {{ totalIngresos | number:'1.2-2' }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -28,7 +28,7 @@
           <ion-item lines="none" class="custom-item small-item">
             <ion-label>
               <h6>Saldo</h6>
-              <p>S./ 19.00</p>
+              <p>S./ {{ saldo | number:'1.2-2' }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -37,27 +37,20 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
-
   <div class="recent-records ion-padding">
     <h4>Registros recientes</h4>
     <ion-list>
-      <ion-item lines="none" class="recent-item">
+      <ion-item *ngFor="let doc of documents" lines="none" class="recent-item">
         <ion-label>
-          <h3>Premio</h3>
-          <p>13/09/24 &nbsp; 2:40 PM</p>
+          <ion-text color="danger"> {{ doc.data.description }} </ion-text>
+          <p *ngIf="doc.data.fecha; else noDate">{{ doc.data.fecha | date:'dd/MM/yy' }} &nbsp; {{ doc.data.fecha |
+            date:'shortTime' }}</p>
+          <ng-template #noDate>No Date Available</ng-template>
         </ion-label>
-        <ion-badge slot="end" color="success">S/ 120.00</ion-badge>
+        <ion-badge slot="end" color="success">S/ {{ doc.data.monto }}</ion-badge>
         <ion-icon name="pricetag" slot="end" color="tertiary"></ion-icon>
       </ion-item>
     </ion-list>
-  </div>
-
-  <div *ngIf="user$ | async as user">
-    <ion-text color="primary">
-      <h1> Email: {{ user.email }}</h1>
-      <h1> uid: {{ user.uid }}</h1>
-    </ion-text>
   </div>
 </ion-content>

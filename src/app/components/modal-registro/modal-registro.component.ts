@@ -10,15 +10,15 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './modal-registro.component.html',
   styleUrls: ['./modal-registro.component.scss'],
   standalone: true,
-  imports: [IonicModule , CommonModule , FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ModalRegistroComponent {
 
   @Input() ingreso: any;
-  cantidad: number | undefined ;
-  constructor(private modalController: ModalController , private storageService:StorageService) {}
+  cantidad: number | undefined;
+  constructor(private modalController: ModalController, private storageService: StorageService) { }
 
-  data: any = { uid:'', type: '', monto: '', fecha: 0, description: '' }
+  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' }
 
 
   closeModal() {
@@ -30,16 +30,14 @@ export class ModalRegistroComponent {
     this.data.uid = this.ingreso.uid;
     this.data.type = this.ingreso.type;
     this.data.monto = this.cantidad;
-    this.data.fecha = formatDate(new Date());
+    this.data.fecha = Date.now();
     this.data.description = this.ingreso.descripcion;
 
     this.storageService.addRegistroDocument(this.data)
-    .then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(error);
-    });
-
+      .then((response) => {
+      }).catch((error) => {
+        console.error('Error al guardar el registro:', error);
+      });
     this.closeModal();
   }
 

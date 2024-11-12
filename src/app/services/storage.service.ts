@@ -18,7 +18,6 @@ export class StorageService {
       if (!user?.uid) {
         throw new Error('User is not logged in.');
       }
-
       const documentData = {
         ...data,
         uid: user.uid
@@ -28,10 +27,39 @@ export class StorageService {
         reference: 'registro',
         data: documentData,
       });
-      console.log('Documento agregado:', result);
       return result;
     } catch (error) {
       console.error('Error al agregar el documento:', error);
+      throw error;
+    }
+  }
+
+  async getDocumentsByUid(uid: string) {
+    try {
+      const { snapshots } = await FirebaseFirestore.getCollection({
+        reference: 'registro',  
+        compositeFilter: {
+          type: 'and',
+          queryConstraints: [
+            {
+              type: 'where',
+              fieldPath: 'uid',
+              opStr: '==',
+              value: uid
+            }
+          ]
+        },
+        queryConstraints: [
+          {
+            type: 'limit',
+            limit: 100  
+          }
+        ]
+      });
+      console.log('Documents retrieved:', snapshots);
+      return snapshots;
+    } catch (error) {
+      console.error('Error fetching documents by UID:', error);
       throw error;
     }
   }
