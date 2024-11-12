@@ -22,9 +22,8 @@ import { StorageService } from 'src/app/services/storage.service';
   imports: [IonicModule, CommonModule, FormsModule, HeaderComponent]
 })
 export class HomePage implements OnInit, OnDestroy {
-  currentDate: string;
-  urlPhoto: string = '';
-  displayName: string = '';
+
+
   user$: Observable<any | null>;
   documents: any[] = [];
   totalGastos: number = 0;
@@ -40,7 +39,7 @@ export class HomePage implements OnInit, OnDestroy {
     private firestoreService: StorageService,
     private cdr: ChangeDetectorRef
   ) {
-    this.currentDate = formatDate(new Date());
+
     addIcons({ library, playCircle, radio, search });
     this.user$ = this.store.select(selectAuthUser);
   }
@@ -48,28 +47,18 @@ export class HomePage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.userSubscription = this.user$.subscribe(user => {
       if (user) {
-        this.urlPhoto = user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg';
-        this.displayName = user.displayName?.split(' ')[0] || user.email?.split('@')[0] || 'Usuario';
-
-        // Set up a real-time listener on the Firestore collection
         this.firestoreService.listenToDocumentsByUid(user.uid).subscribe(documents => {
           this.documents = documents;
-
-          // Calculate totals based on the new documents data
           this.calculateTotals();
-
-          // Trigger change detection to update the UI
           this.cdr.detectChanges();
         });
       } else {
-        this.urlPhoto = '';
-        this.displayName = 'Usuario';
+
       }
     });
   }
 
   ngOnDestroy() {
-    // Unsubscribe from observables when the component is destroyed
     this.userSubscription?.unsubscribe();
   }
 
