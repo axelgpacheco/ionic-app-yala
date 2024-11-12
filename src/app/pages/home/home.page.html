@@ -57,6 +57,7 @@
   <div *ngIf="user$ | async as user">
     <ion-text color="primary">
       <h1> Email: {{ user.email }}</h1>
+      <h1> uid: {{ user.uid }}</h1>
     </ion-text>
   </div>
 </ion-content>

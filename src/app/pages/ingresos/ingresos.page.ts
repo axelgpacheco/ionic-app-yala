@@ -15,7 +15,7 @@ export class IngresosPage {
 
   ingresos: any[] = [
     { id:1, descripcion: 'Salario' , url: './../../../assets/ingresos/tarjeta-de-debito.png' , type: 'ingreso'},
-    { i:2, descripcion: 'Inversiones', url: './../../../assets/ingresos/retorno-de-la-inversion.png',  type: 'ingreso'},
+    { id:2, descripcion: 'Inversiones', url: './../../../assets/ingresos/retorno-de-la-inversion.png',  type: 'ingreso'},
     { id:3, descripcion: 'Premios' , url: './../../../assets/ingresos/trofeo.png' ,  type: 'ingreso'},
     { id:4, descripcion: "Otros" , url: './../../../assets/ingresos/atencion.png' ,  type: 'ingreso'},
     { id:5 , descripcion: "Agregar" , url: './../../../assets/plus-1.png' ,  type: 'ingreso'}

@@ -7,7 +7,7 @@ import {  getRedirectResult } from 'firebase/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   constructor(private auth: Auth) {}
 
@@ -79,4 +79,8 @@ export class AuthServiceService {
     return user ? user.getIdToken() : null;
   }
 
+  async getCurrentUserUid(): Promise<string | null> {
+    const user = await FirebaseAuthentication.getCurrentUser();
+    return user?.user?.uid || null;
+  }
 }

@@ -18,7 +18,7 @@ export class ModalRegistroComponent {
   cantidad: number | undefined ;
   constructor(private modalController: ModalController , private storageService:StorageService) {}
 
-  data: any = { type: '', monto: '', fecha: 0, description: '' }
+  data: any = { uid:'', type: '', monto: '', fecha: 0, description: '' }
 
 
   closeModal() {
@@ -27,7 +27,7 @@ export class ModalRegistroComponent {
 
 
   guardarCantidad() {
-
+    this.data.uid = this.ingreso.uid;
     this.data.type = this.ingreso.type;
     this.data.monto = this.cantidad;
     this.data.fecha = formatDate(new Date());

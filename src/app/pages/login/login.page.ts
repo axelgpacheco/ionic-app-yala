@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {  IonicModule } from '@ionic/angular';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 import * as AuthActions from '../../common/core/state/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -23,22 +23,21 @@ export class LoginPage  {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private serviceAuth: AuthServiceService,
+    private serviceAuth: AuthService,
     private store: Store
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-
-    console.log(store)
+    console.log(store);
   }
 
 
   loginWithGoogle() {
     this.serviceAuth.signInWithGoogle()
       .then((result) => {
-        if (result) { 
+        if (result) {
           this.store.dispatch(AuthActions.loginSuccess({ user: result }));
           this.router.navigate(['/pages/tabs/home']);
         } else {
@@ -79,7 +78,6 @@ export class LoginPage  {
   getToken() {
     this.serviceAuth.getToken().
     then((token) => {
-      console.log(token);
     })
     .catch((error) => {
       console.log(error);

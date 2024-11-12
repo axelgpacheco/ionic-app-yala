@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ export class RegisterPage {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router , private serviceAuth: AuthServiceService) {
+  constructor(private fb: FormBuilder, private router: Router , private serviceAuth: AuthService) {
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,12 +40,12 @@ export class RegisterPage {
        })
        .catch((error) => {
         console.log(error);
-       });        
+       });
     }
     this.registerForm.reset();
   }
 
-  
+
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
