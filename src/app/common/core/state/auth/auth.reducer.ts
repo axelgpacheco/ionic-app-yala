@@ -1,5 +1,4 @@
-// src/app/state/auth/auth.reducer.ts
-import { createReducer, on, State } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 
 export interface AuthState {
@@ -14,5 +13,22 @@ export const initialState: AuthState = {
 
 export const authReducer = createReducer(
   initialState,
-  on(AuthActions.loginSuccess, ( state, { user }): AuthState => ({ ...state, user, error: null })),
+  on(AuthActions.loginSuccess, (state, { user }): AuthState => ({
+    ...state,
+    user,
+    error: null
+  })),
+  on(AuthActions.loginFailure, (state, { error }): AuthState => ({
+    ...state,
+    error
+  })),
+  on(AuthActions.logoutSuccess, (state): AuthState => ({
+    ...state,
+    user: null,
+    error: null
+  })),
+  on(AuthActions.logoutFailure, (state, { error }): AuthState => ({
+    ...state,
+    error
+  }))
 );

@@ -3,10 +3,13 @@ import { addIcons } from 'ionicons';
 import { library, playCircle, radio, search } from 'ionicons/icons';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import * as AuthActions from '../../common/core/state/auth/auth.actions';
 import { FormsModule } from '@angular/forms';
-import { formatDate } from 'src/app/common/core/functions/formatDate';
+import { CommonModule } from '@angular/common';
+import { selectAuthUser } from 'src/app/common/core/state/auth/auth.selectors';
 
 @Component({
   selector: 'app-home',
@@ -21,34 +24,28 @@ export class HomePage implements OnInit {
   urlPhoto: string = '';
   displayName: string = '';
 
-  user: any | null = null;
+  user$: Observable<any | null>;
 
   constructor(
     private actionSheetController: ActionSheetController,
     private router: Router,
-    private authService: AuthServiceService
+    private store: Store  
   ) {
-    this.currentDate = formatDate(new Date());
+    this.currentDate = new Date().toISOString();
     addIcons({ library, playCircle, radio, search });
+    this.user$ = this.store.select(selectAuthUser);
   }
 
   ngOnInit(): void {
-
-    this.authService.getCurrentUser()
-      .then(({ user }) => {
-        if (user) {
-          this.urlPhoto = user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg';
-          this.displayName = user.displayName?.split(' ')[0] || 'Usuario'
-        } else {
-          console.error('User is null');
-        }
-        console.log('user ->' + user);
-
-      })
-      .catch((error) => {
-        console.error('Error obteniendo el usuario:', error);
-      });
-
+    this.user$.subscribe(user => {
+      if (user) {
+        this.urlPhoto = user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg';
+        this.displayName = user.displayName?.split(' ')[0] || 'Usuario';
+      } else {
+        this.urlPhoto = '';
+        this.displayName = 'Usuario';
+      }
+    });
   }
 
   async presentActionSheet() {
@@ -72,12 +69,7 @@ export class HomePage implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
-    this.urlPhoto = '';
-    this.displayName = '';
+    this.store.dispatch(AuthActions.logout());
     this.router.navigate(['/login']);
   }
-
-
-
 }

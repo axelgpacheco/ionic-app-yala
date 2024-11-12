@@ -16,6 +16,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.prod';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './common/core/state/app-store.module';
+import { CoopInterceptor } from './common/core/interceptors/coop-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,10 +30,7 @@ import { reducers } from './common/core/state/app-store.module';
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
+        strictActionTypeUniqueness: false,
       },
     })
   ],
@@ -46,7 +45,8 @@ import { reducers } from './common/core/state/app-store.module';
     provideDatabase(() => getDatabase()),
     provideMessaging(() => getMessaging()),
     providePerformance(() => getPerformance()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    { provide: HTTP_INTERCEPTORS, useClass: CoopInterceptor, multi: true }
 
   ],
   bootstrap: [AppComponent],

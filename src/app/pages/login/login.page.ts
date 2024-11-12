@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ActionSheetController, IonicModule } from '@ionic/angular';
+import {  IonicModule } from '@ionic/angular';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { getRedirectResult } from 'firebase/auth';
+import * as AuthActions from '../../common/core/state/auth/auth.actions';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectAuthState } from 'src/app/common/core/state/auth/auth.selectors';
 
 @Component({
   selector: 'app-login',
@@ -18,31 +20,36 @@ export class LoginPage  {
   loginForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private serviceAuth: AuthServiceService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private serviceAuth: AuthServiceService,
+    private store: Store
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    console.log(store)
   }
 
 
   loginWithGoogle() {
     this.serviceAuth.signInWithGoogle()
-    .then((result) => {
-      if (result ) {
-        this.getToken();
-        console.log(result);
-
-        this.router.navigate(['/pages/tabs/home']);
-      } else {
-        console.log('No user data found');
-      }
-      console.log('Usuario logueado con Google');
-      this.router.navigate(['/pages/tabs/home']);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((result) => {
+        if (result) { 
+          this.store.dispatch(AuthActions.loginSuccess({ user: result }));
+          this.router.navigate(['/pages/tabs/home']);
+        } else {
+          console.log('No user data found');
+          this.store.dispatch(AuthActions.loginFailure({ error: 'No user data found' }));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
+      });
   }
 
   navigateToRegister() {
@@ -50,16 +57,21 @@ export class LoginPage  {
   }
 
   loginWithEmailAndPassword() {
-
     const { email, password } = this.loginForm.value;
 
-    this.serviceAuth.signInWithEmailAndPassword( email,password)
-    .then((result) => {
-      console.log(result);
-      this.router.navigate(['/pages/tabs/home']);
-    }).catch((error) => {
-      console.log(error);
-    });
+
+    this.store.dispatch(AuthActions.login({ email, password }));
+
+    this.serviceAuth.signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result);
+        this.store.dispatch(AuthActions.loginSuccess({ user: result }));
+        this.router.navigate(['/pages/tabs/home']);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
+      });
 
     this.loginForm.reset();
   }

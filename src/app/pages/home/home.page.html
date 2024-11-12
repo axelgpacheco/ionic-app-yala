@@ -70,5 +70,13 @@
         </ion-item>
       </ion-list>
   </div>
+
+  <div *ngIf="user$ | async as user">
+     <ion-text color="primary">
+      <h1> Email: {{ user.email }}</h1>
+    </ion-text>
+  </div>
 </ion-content>
+
+
 
