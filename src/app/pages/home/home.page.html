@@ -1,23 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <ion-grid>
-      <ion-row class="ion-align-items-center ion-justify-content-center">
-        <ion-col size="3" class="ion-text-center">
-          <ion-icon name="calendar-clear" size="small"></ion-icon>
-        </ion-col>
-        <ion-col size="6" class="ion-text-center">
-          <h6 class="custom-title">{{ currentDate }}</h6>
-        </ion-col>
-        <ion-col size="3" class="ion-text-center">
-          <ion-chip (click)="presentActionSheet()">
-            <ion-avatar>
-              <img alt="Silhouette of a person's head"  [src]="urlPhoto"  />
-            </ion-avatar>
-            <ion-label> {{ displayName }} </ion-label>
-          </ion-chip>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <app-header title="Home Page"></app-header>
     <ion-grid class="no-padding-grid">
       <ion-row class="ion-align-items-stretch ion-justify-content-center no-padding-row">
         <!-- Columna Gastos -->
@@ -31,7 +14,7 @@
         </ion-col>
 
         <!-- Columna Ingresos -->
-        <ion-col size="3" class="ion-text-center no-padding-col" >
+        <ion-col size="3" class="ion-text-center no-padding-col">
           <ion-item lines="none" class="custom-item small-item">
             <ion-label>
               <h6>Ingresos</h6>
@@ -57,26 +40,23 @@
 
 <ion-content [fullscreen]="true">
 
-    <div class="recent-records ion-padding">
-      <h4>Registros recientes</h4>
-      <ion-list>
-        <ion-item lines="none" class="recent-item">
-          <ion-label>
-            <h3>Premio</h3>
-            <p>13/09/24 &nbsp; 2:40 PM</p>
-          </ion-label>
-          <ion-badge slot="end" color="success">S/ 120.00</ion-badge>
-          <ion-icon name="pricetag" slot="end" color="tertiary"></ion-icon>
-        </ion-item>
-      </ion-list>
+  <div class="recent-records ion-padding">
+    <h4>Registros recientes</h4>
+    <ion-list>
+      <ion-item lines="none" class="recent-item">
+        <ion-label>
+          <h3>Premio</h3>
+          <p>13/09/24 &nbsp; 2:40 PM</p>
+        </ion-label>
+        <ion-badge slot="end" color="success">S/ 120.00</ion-badge>
+        <ion-icon name="pricetag" slot="end" color="tertiary"></ion-icon>
+      </ion-item>
+    </ion-list>
   </div>
 
   <div *ngIf="user$ | async as user">
-     <ion-text color="primary">
+    <ion-text color="primary">
       <h1> Email: {{ user.email }}</h1>
     </ion-text>
   </div>
 </ion-content>
-
-
-

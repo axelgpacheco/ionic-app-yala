@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { Store } from '@ngrx/store';
 import { addIcons } from 'ionicons';
 import { library, playCircle, radio, search } from 'ionicons/icons';
-import { ActionSheetController, IonicModule } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-
-import * as AuthActions from '../../common/core/state/auth/auth.actions';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { selectAuthUser } from 'src/app/common/core/state/auth/auth.selectors';
 import { formatDate } from 'src/app/common/core/functions/formatDate';
-import { HeaderComponent } from 'src/app/components/header/header.component';
+import { selectAuthUser } from 'src/app/common/core/state/auth/auth.selectors';
+import * as AuthActions from '../../common/core/state/auth/auth.actions';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule , HeaderComponent]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: true ,
+  imports: [IonicModule ,CommonModule, FormsModule]
 })
-export class HomePage implements OnInit {
+export class HeaderComponent  implements OnInit {
 
-  currentDate: string;
+  @Input() title: string = 'Home';
+
+
   urlPhoto: string = '';
   displayName: string = '';
 
@@ -33,7 +33,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private store: Store
   ) {
-    this.currentDate = formatDate(new Date());
+    this.title = formatDate(new Date());
     addIcons({ library, playCircle, radio, search });
     this.user$ = this.store.select(selectAuthUser);
   }
@@ -78,4 +78,5 @@ export class HomePage implements OnInit {
     this.store.dispatch(AuthActions.logout());
     this.router.navigate(['/login']);
   }
+
 }

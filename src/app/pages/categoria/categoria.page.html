@@ -1,33 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <ion-grid>
-      <ion-row class="ion-align-items-center ion-justify-content-center">
-        <ion-col size="3" class="ion-text-center">
-          <ion-icon name="calendar-clear" size="small"></ion-icon>
-        </ion-col>
-        <ion-col size="6" class="ion-text-center">
-          <h6 class="custom-title">Agregar Nuevo Movimiento</h6>
-        </ion-col>
-        <ion-col size="3" class="ion-text-center">
-          <ion-chip>
-            <ion-avatar>
-              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-            </ion-avatar>
-            <ion-label> Jose </ion-label>
-          </ion-chip>
-        </ion-col>
-      </ion-row>
-      <!-- Fijo el ion-segment para selección -->
-      <ion-segment [(ngModel)]="selectedTab" (ionChange)="navigateTo(selectedTab)">
-        <ion-segment-button value="gastos">
-          Gastos
-        </ion-segment-button>
-        <ion-segment-button value="ingresos">
-          Ingresos
-        </ion-segment-button>
-      </ion-segment>
-    </ion-grid>
-
+    <app-header title="Agregar Nuevo Movimiento"></app-header>
+    <ion-segment [(ngModel)]="selectedTab" (ionChange)="navigateTo(selectedTab)">
+      <ion-segment-button value="gastos">
+        Gastos
+      </ion-segment-button>
+      <ion-segment-button value="ingresos">
+        Ingresos
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 

@@ -5,6 +5,7 @@ import { IngresosPage } from '../ingresos/ingresos.page';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 
 @Component({
@@ -12,12 +13,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   templateUrl: './categoria.page.html',
   styleUrls: ['./categoria.page.scss'],
   standalone: true,
-  imports: [IonicModule ,FormsModule,RouterModule , GastosPage, IngresosPage ,CommonModule],
+  imports: [IonicModule ,FormsModule,RouterModule , GastosPage, IngresosPage ,CommonModule, HeaderComponent],
 
 })
 export class CategoriaPage  implements OnInit {
 
-  selectedTab: string = 'gastos'; 
+  selectedTab: string = 'gastos';
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
