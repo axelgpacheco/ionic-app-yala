@@ -48,7 +48,12 @@ export class HomePage implements OnInit, OnDestroy {
     this.userSubscription = this.user$.subscribe(user => {
       if (user) {
         this.firestoreService.listenToDocumentsByUid(user.uid).subscribe(documents => {
-          this.documents = documents;
+
+         this.documents = documents.sort((a, b) => {
+          const dateA = new Date(a.data.fecha).getTime();
+          const dateB = new Date(b.data.fecha).getTime();
+          return dateB - dateA;
+        });
           this.calculateTotals();
           this.cdr.detectChanges();
         });
