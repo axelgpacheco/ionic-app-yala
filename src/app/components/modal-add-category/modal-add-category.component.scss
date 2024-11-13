@@ -1,0 +1,24 @@
+.image-container {
+  margin: 16px 0;
+}
+
+.image-preview-container {
+  margin: 16px 0;
+  text-align: center;
+
+  ion-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+}
+
+.button-container {
+  margin-top: 24px;
+}
+
+.selected-image{
+   width: 100px;
+   height: 100px;
+}

@@ -3,9 +3,17 @@
     <ion-row class="custom-row">
       <ion-col size="4" *ngFor="let gasto of gastos; let i = index" [ngClass]="{'hidden': i >= 12}" class="custom-col">
         <ion-card class="custom-card" (click)="onCardClick(gasto)">
-          <img class="card-img" [src]="gasto.url" alt="Imagen de Gasto" />
+          <ion-img class="card-img" [src]="gasto.url" alt="Imagen de Gasto"></ion-img>
           <ion-card-content class="card-content">
             <span class="card-text">{{ gasto.descripcion }}</span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4"  class="custom-col" >
+        <ion-card class="custom-card" (click)="addNewCategory()">
+          <img class="card-img" src="./../../../assets/plus-1.png" alt="Imagen Gasto" />
+          <ion-card-content class="card-content">
+            <span class="card-text"> Nueva Categoria </span>
           </ion-card-content>
         </ion-card>
       </ion-col>

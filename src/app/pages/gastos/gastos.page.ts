@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ModalRegistroComponent } from 'src/app/components/modal-registro/modal-registro.component';
+import { ModalAddCategoryComponent } from 'src/app/components/modal-add-category/modal-add-category.component';
+
 
 @Component({
   selector: 'app-gastos',
@@ -16,7 +18,6 @@ export class GastosPage{
     { descripcion: 'Agua' , url: './../../../assets/gastos/botella-de-agua.png', type: 'gasto'},
     { descripcion: 'Luz', url: './../../../assets/gastos/luz.png' , type: 'gasto'},
     { descripcion: 'Comida' , url: './../../../assets/gastos/dieta.png' , type: 'gasto'},
-    { descripcion: "Agregar" , url: './../../../assets/plus-1.png' , type: 'gasto'}
   ];
 
   constructor(private modalController: ModalController) {}
@@ -30,5 +31,13 @@ export class GastosPage{
     return await modal.present();
   }
 
+
+  async addNewCategory() {
+    const modal = await this.modalController.create({
+      component: ModalAddCategoryComponent,
+      componentProps: { ingreso: { type: 'gasto'} },
+    });
+    return await modal.present();
+  }
 
 }

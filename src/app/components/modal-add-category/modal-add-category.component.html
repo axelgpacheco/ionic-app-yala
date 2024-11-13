@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="small">Nuevo Categoria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="modal-content">
+    <!-- Image Selection and Preview -->
+    <div class="image-container">
+      <ion-label position="stacked">Selecciona una imagen</ion-label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" title="Selecciona una imagen" placeholder="Selecciona una imagen" />
+    </div>
+    <div class="image-preview-container" *ngIf="selectedImage">
+      <ion-img [src]="selectedImage" alt="Selected Image" class="selected-image"></ion-img>
+    </div>
+    <ion-button expand="block" color="primary" (click)="uploadImage()">
+      Subir Imagen
+    </ion-button>
+    <ion-progress-bar
+      *ngIf="uploadProgress > 0 && uploadProgress < 100"
+      [value]="uploadProgress / 100"
+    ></ion-progress-bar>
+
+    <!-- Ingreso Type -->
+    <h2>{{ ingreso.type }}</h2>
+
+    <!-- Description Input -->
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="descripcion"
+        placeholder="Ingresa una descripción"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <!-- Save Button -->
+    <div class="button-container">
+      <ion-button expand="full" (click)="guardarCantidad()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Categoria
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
