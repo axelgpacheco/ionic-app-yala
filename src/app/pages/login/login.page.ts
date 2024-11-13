@@ -5,8 +5,7 @@ import {  IonicModule } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-service.service';
 import * as AuthActions from '../../common/core/state/auth/auth.actions';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectAuthState } from 'src/app/common/core/state/auth/auth.selectors';
+
 
 @Component({
   selector: 'app-login',

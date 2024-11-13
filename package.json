@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
-    "@capacitor-firebase/authentication": "^6.2.0",
+    "@capacitor-firebase/authentication": "6.2.0",
     "@capacitor-firebase/firestore": "^6.2.0",
     "@capacitor-firebase/storage": "^6.2.0",
     "@capacitor/android": "6.1.2",
