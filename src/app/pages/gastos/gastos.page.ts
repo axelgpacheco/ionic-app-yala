@@ -18,6 +18,13 @@ export class GastosPage{
     { descripcion: 'Agua' , url: './../../../assets/gastos/botella-de-agua.png', type: 'gasto'},
     { descripcion: 'Luz', url: './../../../assets/gastos/luz.png' , type: 'gasto'},
     { descripcion: 'Comida' , url: './../../../assets/gastos/dieta.png' , type: 'gasto'},
+    { descripcion: 'Transporte' , url: './../../../assets/gastos/transporte.png' , type: 'gasto'},
+    { descripcion: 'Ropa' , url: './../../../assets/gastos/ropa.png' , type: 'gasto'},
+    { descripcion: 'Entretenimiento' , url: './../../../assets/gastos/entretenimiento.png' , type: 'gasto'},
+    { descripcion: 'Salud' , url: './../../../assets/gastos/salud.png' , type: 'gasto'},
+    { descripcion: 'Educación' , url: './../../../assets/gastos/educacion.png' , type: 'gasto'},
+    { descripcion: 'Hogar' , url: './../../../assets/gastos/hogar.png' , type: 'gasto'},
+    { descripcion: 'Otros' , url: './../../../assets/gastos/otros.png' , type: 'gasto'},
   ];
 
   constructor(private modalController: ModalController) {}
@@ -27,15 +34,6 @@ export class GastosPage{
     const modal = await this.modalController.create({
       component: ModalRegistroComponent,
       componentProps: { ingreso },
-    });
-    return await modal.present();
-  }
-
-
-  async addNewCategory() {
-    const modal = await this.modalController.create({
-      component: ModalAddCategoryComponent,
-      componentProps: { ingreso: { type: 'gasto'} },
     });
     return await modal.present();
   }
