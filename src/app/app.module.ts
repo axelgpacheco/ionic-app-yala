@@ -25,12 +25,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    IonicModule.forRoot(),
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
         strictActionTypeUniqueness: false,
+      
       },
     })
   ],

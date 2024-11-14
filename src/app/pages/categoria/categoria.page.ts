@@ -23,7 +23,6 @@ export class CategoriaPage  implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
       this.selectedTab = params['tab'] || 'gastos';
     });

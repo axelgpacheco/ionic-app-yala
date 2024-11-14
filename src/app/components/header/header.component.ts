@@ -38,7 +38,7 @@ export class HeaderComponent  implements OnInit {
     this.user$ = this.store.select(selectAuthUser);
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.user$.subscribe(user => {
       if (user) {
         this.urlPhoto = user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg';

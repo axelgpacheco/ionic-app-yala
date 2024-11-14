@@ -79,30 +79,6 @@ export class HomePage implements OnInit, OnDestroy {
     this.saldo = this.totalIngresos - this.totalGastos;
   }
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Opciones de Usuario',
-      buttons: [
-        {
-          text: 'Cerrar Sesión',
-          icon: 'log-out',
-          handler: () => {
-            this.logout();
-          },
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-        },
-      ],
-    });
-    await actionSheet.present();
-
-    document.querySelector('ion-content')?.setAttribute('inert', '');
-    actionSheet.onDidDismiss().then(() => {
-      document.querySelector('ion-content')?.removeAttribute('inert');
-    });
-  }
 
   logout() {
     this.store.dispatch(AuthActions.logout());

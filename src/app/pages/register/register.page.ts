@@ -45,7 +45,7 @@ export class RegisterPage {
     this.registerForm.reset();
   }
 
-
+  
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
