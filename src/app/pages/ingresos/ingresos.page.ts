@@ -23,11 +23,11 @@ export class IngresosPage {
     { id: 7, descripcion: 'Subsidios', url: './../../../assets/ingresos/subsidio.png', type: 'ingreso', icon: 'cash-outline' },
     { id: 8, descripcion: 'Premios', url: './../../../assets/ingresos/trofeo.png', type: 'ingreso', icon: 'trophy-outline' },
     { id: 9, descripcion: 'Otros', url: './../../../assets/ingresos/otros.png', type: 'ingreso', icon: 'options-outline' },
-    { id: 10, descripcion: 'Ventas', url: './../../../assets/ingresos/ventas.png', type: 'ingreso', icon: 'cart-outline' },
+    { id: 10, descripcion: 'Ventas', url: './../../../assets/ingresos/ventas.png', type: 'ingreso', icon: 'bar-chart-outline' },
   ];
 
   constructor(private modalController: ModalController) {
-    
+
   }
 
 

@@ -41,8 +41,9 @@ export class EditModalComponent  {
       }).catch((error) => {
         console.error('Error al guardar el registro:', error);
       });
-    this.closeModal();
     */
+      this.closeModal();
+
   }
 
 

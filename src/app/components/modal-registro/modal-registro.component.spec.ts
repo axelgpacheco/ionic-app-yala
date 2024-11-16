@@ -46,15 +46,15 @@ describe('ModalRegistroComponent', () => {
     expect(mockModalController.dismiss).toHaveBeenCalled();
   });
 
-  it('should populate "data" correctly and call storage service on guardarCantidad', async () => {
+  it('should populate "data" correctly and call storage service on guardarMonto', async () => {
     const mockIngreso = { uid: '123', type: 'testType', descripcion: 'Test Description' };
     component.ingreso = mockIngreso;
-    component.cantidad = 100;
+    component.monto = 100;
 
     const mockResponse = Promise.resolve({ result: 'Success' } as unknown as AddDocumentResult);
     mockStorageService.addRegistroDocument.and.returnValue(mockResponse);
 
-    component.guardarCantidad();
+    component.guardarMonto();
 
     expect(component.data).toEqual({
       uid: '123',
@@ -67,16 +67,16 @@ describe('ModalRegistroComponent', () => {
     expect(mockModalController.dismiss).toHaveBeenCalled();
   });
 
-  it('should log an error if guardarCantidad fails', async () => {
+  it('should log an error if guardarMonto fails', async () => {
     spyOn(console, 'error');
 
     const mockIngreso = { uid: '123', type: 'testType', descripcion: 'Test Description' };
     component.ingreso = mockIngreso;
-    component.cantidad = 100;
+    component.monto = 100;
 
     mockStorageService.addRegistroDocument.and.returnValue(Promise.reject('Test Error'));
 
-    await component.guardarCantidad();
+    await component.guardarMonto();
 
     expect(console.error).toHaveBeenCalledWith('Error al guardar el registro:', 'Test Error');
     expect(mockModalController.dismiss).toHaveBeenCalled();

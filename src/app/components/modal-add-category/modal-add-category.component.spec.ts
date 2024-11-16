@@ -75,12 +75,12 @@ describe('ModalAddCategoryComponent', () => {
     expect(console.log).toHaveBeenCalledWith(`categories/${jasmine.any(Number)}_test.jpg`);
   });
 
-  it('should save and close the modal on "guardarCantidad"', () => {
+  it('should save and close the modal on "guardarMonto"', () => {
     spyOn(console, 'log');
     component.descripcion = 'Test Description';
     component.data = { uid: '123', type: 'test', monto: '100', fecha: Date.now(), description: 'Test data' };
 
-    component.guardarCantidad();
+    component.guardarMonto();
 
     expect(console.log).toHaveBeenCalledWith('Categoria Agregada');
     expect(console.log).toHaveBeenCalledWith('Test Description');
