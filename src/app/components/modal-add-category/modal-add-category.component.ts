@@ -23,7 +23,7 @@ export class ModalAddCategoryComponent  {
 
   data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' };
 
-  
+
 
   closeModal() {
     this.modalController.dismiss();
@@ -48,13 +48,13 @@ export class ModalAddCategoryComponent  {
     if (this.fileToUpload) {
       const filePath = `categories/${Date.now()}_${this.fileToUpload.name}`;
       console.log(filePath);
-      
+
     } else {
       alert('Please select an image before uploading.');
     }
   }
 
-  guardarCantidad() {
+  guardarMonto() {
     console.log('Categoria Agregada');
     console.log(this.descripcion);
     console.log('Data:', this.data);

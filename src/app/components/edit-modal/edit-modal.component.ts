@@ -2,23 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { formatDate } from 'src/app/common/core/functions/formatDate';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-modal-registro',
-  templateUrl: './modal-registro.component.html',
-  styleUrls: ['./modal-registro.component.scss'],
+  selector: 'app-edit-modal',
+  templateUrl: './edit-modal.component.html',
+  styleUrls: ['./edit-modal.component.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ModalRegistroComponent {
+export class EditModalComponent  {
+
 
   @Input() ingreso: any;
   monto: number | undefined;
   constructor(private modalController: ModalController, private storageService: StorageService) { }
 
-  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '', icon: '' }
+  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' }
 
 
   closeModal() {
@@ -26,29 +26,24 @@ export class ModalRegistroComponent {
   }
 
 
+  editarMonto() {
 
-  guardarMonto() {
-    this.data.uid = this.ingreso.uid;
-    this.data.type = this.ingreso.type;
-    this.data.monto = this.monto;
-    this.data.fecha = Date.now();
-    this.data.description = this.ingreso.descripcion;
-    this.data.icon = this.ingreso.icon;
+    this.data = {
+      ...this.ingreso,
+      monto: this.monto
+    };
 
-
-
+    console.log(this.data);
+/*
     this.storageService.addRegistroDocument(this.data)
       .then((response) => {
-
+        console.log(response);
       }).catch((error) => {
-
         console.error('Error al guardar el registro:', error);
-
       });
-
     this.closeModal();
+    */
   }
-
 
 
 }

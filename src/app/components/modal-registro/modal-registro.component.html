@@ -17,19 +17,19 @@
     <h2>{{ ingreso.descripcion }}</h2>
 
     <ion-item>
-      <ion-label position="stacked">Cantidad</ion-label>
+      <ion-label position="stacked">Monto</ion-label>
       <ion-input
         type="number"
-        [(ngModel)]="cantidad"
-        placeholder="Ingresa una cantidad"
+        [(ngModel)]="monto"
+        placeholder="Ingresa una monto"
         required>
       </ion-input>
     </ion-item>
 
     <div class="button-container">
-      <ion-button expand="full" (click)="guardarCantidad()">
+      <ion-button expand="full" (click)="guardarMonto()">
         <ion-icon name="save-outline" slot="start"></ion-icon>
-        Guardar Cantidad
+        Guardar Monto
       </ion-button>
     </div>
   </div>

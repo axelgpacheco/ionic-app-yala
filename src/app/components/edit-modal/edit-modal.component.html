@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title size="small">Editar Registro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="closeModal()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="modal-content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ ingreso?.data?.description || 'Sin Descripción' }}</ion-card-title>
+        <ion-card-subtitle *ngIf="ingreso?.data?.fecha">
+          Fecha: {{ ingreso?.data?.fecha | date: 'shortDate' }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="full">
+          <ion-label position="stacked" color="primary">Actualizar Monto</ion-label>
+          <ion-input
+            type="number"
+            [(ngModel)]="monto"
+            placeholder="Ingresa nuevo Monto"
+            required>
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="button-container">
+      <ion-button
+        expand="block"
+        shape="round"
+        (click)="editarMonto()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Monto
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

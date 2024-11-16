@@ -11,7 +11,7 @@ export class StorageService {
 
   constructor(private store: Store) { }
 
-  async addRegistroDocument(data: { tipo: string; monto: string; fecha: Date; description: string }) {
+  async addRegistroDocument(data: { tipo: string; monto: string; fecha: Date; description: string , icon: string }) {
     try {
       const user = await firstValueFrom(this.store.select(selectAuthUser));
       if (!user?.uid) {
@@ -22,10 +22,14 @@ export class StorageService {
         uid: user.uid
       };
 
+    console.log(documentData);
+
       const result = await FirebaseFirestore.addDocument({
         reference: 'registro',
         data: documentData,
       });
+
+
       return result;
     } catch (error) {
       console.error('Error al agregar el documento:', error);
@@ -33,10 +37,35 @@ export class StorageService {
     }
   }
 
+  async editRegistroDocument(data: { tipo: string; monto: string;  }) {
+
+    try {
+      const user = await firstValueFrom(this.store.select(selectAuthUser));
+      if (!user?.uid) {
+        throw new Error('User is not logged in.');
+      }
+      const documentData = {
+        ...data,
+        uid: user.uid
+      };
+
+      const result = await FirebaseFirestore.updateDocument({
+        reference: 'registro',
+        data: documentData,
+      });
+      return result;
+    } catch (error) {
+      console.error('Error al editar el documento:', error);
+      throw error;
+    }
+  }
+
+
+
   async getDocumentsByUid(uid: string) {
     try {
       const { snapshots } = await FirebaseFirestore.getCollection({
-        reference: 'registro',  
+        reference: 'registro',
         compositeFilter: {
           type: 'and',
           queryConstraints: [
@@ -51,7 +80,7 @@ export class StorageService {
         queryConstraints: [
           {
             type: 'limit',
-            limit: 100  
+            limit: 100
           }
         ]
       });

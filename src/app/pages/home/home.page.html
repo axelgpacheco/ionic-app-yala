@@ -37,7 +37,7 @@
   <div class="recent-records ion-padding">
     <h4 class="recent-records-title">Registros recientes</h4>
     <ion-list>
-      <ion-item *ngFor="let doc of documents" lines="none" class="recent-item">
+      <ion-item *ngFor="let doc of documents" lines="none" class="recent-item" (click)="onItemClick(doc)">
         <ion-label>
           <ion-text color="danger"> {{ doc.data.description }} </ion-text>
           <p *ngIf="doc.data.fecha; else noDate">

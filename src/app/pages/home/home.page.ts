@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { library, playCircle, radio, search } from 'ionicons/icons';
-import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { ActionSheetController, IonicModule, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { selectAuthUser } from 'src/app/common/core/state/auth/auth.selectors';
 import { formatDate } from 'src/app/common/core/functions/formatDate';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { StorageService } from 'src/app/services/storage.service';
+import { EditModalComponent } from 'src/app/components/edit-modal/edit-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ export class HomePage implements OnInit, OnDestroy {
     private router: Router,
     private store: Store,
     private firestoreService: StorageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private modalController: ModalController
   ) {
 
     addIcons({ library, playCircle, radio, search });
@@ -83,5 +85,21 @@ export class HomePage implements OnInit, OnDestroy {
   logout() {
     this.store.dispatch(AuthActions.logout());
     this.router.navigate(['/login']);
+  }
+
+  async onItemClick(doc:any){
+    console.log(doc);
+
+    if (doc.data.type === 'gasto') {
+      console.log('This is a "gasto" type document');
+    } else {
+      console.log('This is an "ingreso" type document');
+    }
+
+    const modal = await this.modalController.create({
+      component: EditModalComponent,
+      componentProps: { ingreso: doc },
+    });
+    return await modal.present();
   }
 }
