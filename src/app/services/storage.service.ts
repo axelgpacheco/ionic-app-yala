@@ -3,6 +3,7 @@ import { AddCollectionSnapshotListenerCallbackEvent, DocumentData, FirebaseFires
 import { selectAuthUser } from '../common/core/state/auth/auth.selectors';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, Observable } from 'rxjs';
+import { Timestamp } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,11 @@ export class StorageService {
     }
   }
 
+
+
+
+
+
   async editRegistroDocument(path: string, data: { uid: '', type: '', monto: '', fecha: 0, description: '' }) {
 
     try {
@@ -58,8 +64,6 @@ export class StorageService {
       throw error;
     }
   }
-
-
 
   async getDocumentsByUid(uid: string) {
     try {
@@ -87,6 +91,43 @@ export class StorageService {
       return snapshots;
     } catch (error) {
       console.error('Error fetching documents by UID:', error);
+      throw error;
+    }
+  }
+
+  async getBetweenDateDocument(startDate:number,endDate:number): Promise<any> {
+
+
+    try {
+      const user = await firstValueFrom(this.store.select(selectAuthUser));
+      if (!user?.uid) {
+        throw new Error('User is not logged in.');
+      }
+      const { snapshots } = await FirebaseFirestore.getCollection({
+        reference: 'registro',
+        compositeFilter: {
+          type: 'and',
+          queryConstraints: [
+            { type: 'where', fieldPath: 'uid', opStr: '==', value: user.uid }
+          ],
+        },
+        queryConstraints: [
+          { type: 'orderBy', fieldPath: 'fecha', directionStr: 'desc' },
+        ],
+      });
+
+
+      if (!snapshots.length) {
+        console.log('No documents found within the specified date range.');
+        return [];
+      }
+
+      console.log(' Start Date:', startDate);
+      console.log(' End Date:', endDate);
+
+     return snapshots
+    } catch (error) {
+      console.error('Error fetching documents by UID and date range:', error);
       throw error;
     }
   }
@@ -126,4 +167,6 @@ export class StorageService {
       );
     });
   }
+
+
 }

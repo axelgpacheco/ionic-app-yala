@@ -1,6 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="tertiary">
-    <app-header title="Reportes Page"></app-header>
+    <app-header title="Reportes por fechas"></app-header>
   </ion-toolbar>
 </ion-header>
 
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <div class="date-selection">
+     
+        <ion-item>
+          <ion-label>INICIO</ion-label>
+          <ion-datetime-button datetime="startDatetime"></ion-datetime-button>
+        </ion-item>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="startDatetime"
+              presentation="date-time"
+              [(ngModel)]="startDate"
+              (ionChange)="validateDates()"
+              [formatOptions]="{
+                date: { weekday: 'short', month: 'long', day: '2-digit' },
+                time: { hour: '2-digit', minute: '2-digit' }
+              }"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+
+
+        <ion-item>
+          <ion-label>FIN</ion-label>
+          <ion-datetime-button datetime="endDatetime"></ion-datetime-button>
+        </ion-item>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="endDatetime"
+              presentation="date-time"
+              [(ngModel)]="endDate"
+              (ionChange)="validateDates()"
+              [formatOptions]="{
+                date: { weekday: 'short', month: 'long', day: '2-digit' },
+                time: { hour: '2-digit', minute: '2-digit' }
+              }"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+
+        <div class="button-group">
+          <ion-button expand="full" color="primary" (click)="applyDates()">Aplicar</ion-button>
+          <ion-button expand="full"  color="tertiary" (click)="clearDates()">Limpiar</ion-button>
+        </div>
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
