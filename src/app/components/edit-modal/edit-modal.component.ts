@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -11,43 +11,58 @@ import { StorageService } from 'src/app/services/storage.service';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class EditModalComponent  {
-
+export class EditModalComponent {
 
   @Input() ingreso: any;
   @Input() path: string | undefined;
   monto: number | undefined;
-  constructor(private modalController: ModalController, private storageService: StorageService) { }
+  constructor(private modalController: ModalController, private storageService: StorageService, private toastController: ToastController) { }
 
-  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' }
-
+  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' };
 
   closeModal() {
     this.modalController.dismiss();
   }
 
+  async showToast(message: string , color: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom',
+      animated: true,
+      icon: 'happy-outline',
+    });
+    await toast.present();
+  }
 
   editarMonto() {
 
+    if (this.monto === undefined || this.monto === null || isNaN(this.monto) || this.monto <= 0) {
+      this.showToast('Por favor, ingrese un monto válido.', 'danger');
+      return;
+    }
+
+
     this.data = {
       ...this.ingreso,
-      monto: this.monto ,
+      monto: this.monto,
     };
+
 
     if (this.path) {
       this.storageService.editRegistroDocument(this.path, this.data)
         .then((response) => {
-          console.log('Registro actualizado');
-        }).catch((error) => {
+          this.showToast('Monto actualizado', 'warning');
+        })
+        .catch((error) => {
+          this.showToast('Error al actualizar el monto.', 'danger');
           console.error('Error al guardar el registro:', error);
         });
     } else {
       console.error('Path is undefined');
     }
 
-      this.closeModal();
-
+    this.closeModal();
   }
-
-
 }
