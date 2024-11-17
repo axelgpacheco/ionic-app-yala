@@ -30,7 +30,7 @@ export class HomePage implements OnInit, OnDestroy {
   totalGastos: number = 0;
   totalIngresos: number = 0;
   saldo: number = 0;
-
+  loaded = false;
   private userSubscription: Subscription | null = null;
 
   constructor(
@@ -58,6 +58,7 @@ export class HomePage implements OnInit, OnDestroy {
         });
           this.calculateTotals();
           this.cdr.detectChanges();
+          this.loaded = true;
         });
       } else {
 
@@ -88,7 +89,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async onItemClick(doc:any){
-    console.log(doc);
+    console.log(doc.path);
 
     if (doc.data.type === 'gasto') {
       console.log('This is a "gasto" type document');
@@ -98,7 +99,7 @@ export class HomePage implements OnInit, OnDestroy {
 
     const modal = await this.modalController.create({
       component: EditModalComponent,
-      componentProps: { ingreso: doc },
+      componentProps: { path:doc.path , ingreso: doc.data },
     });
     return await modal.present();
   }

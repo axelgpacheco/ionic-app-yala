@@ -15,6 +15,7 @@ export class EditModalComponent  {
 
 
   @Input() ingreso: any;
+  @Input() path: string | undefined;
   monto: number | undefined;
   constructor(private modalController: ModalController, private storageService: StorageService) { }
 
@@ -30,18 +31,20 @@ export class EditModalComponent  {
 
     this.data = {
       ...this.ingreso,
-      monto: this.monto
+      monto: this.monto ,
     };
 
-    console.log(this.data);
-/*
-    this.storageService.addRegistroDocument(this.data)
-      .then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        console.error('Error al guardar el registro:', error);
-      });
-    */
+    if (this.path) {
+      this.storageService.editRegistroDocument(this.path, this.data)
+        .then((response) => {
+          console.log('Registro actualizado');
+        }).catch((error) => {
+          console.error('Error al guardar el registro:', error);
+        });
+    } else {
+      console.error('Path is undefined');
+    }
+
       this.closeModal();
 
   }

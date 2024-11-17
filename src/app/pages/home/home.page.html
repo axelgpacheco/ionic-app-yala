@@ -1,56 +1,145 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="tertiary">
-    <app-header title="Home Page"></app-header>
-    <ion-grid class="no-padding-grid">
-      <ion-row class="ion-align-items-stretch ion-justify-content-center no-padding-row">
-        <ion-col size="3" class="ion-text-center no-padding-col">
-          <ion-item lines="none" class="custom-item small-item">
+<ng-container *ngIf="loaded; else skeletonContent">
+  <!-- Display the actual content -->
+  <ion-header [translucent]="true">
+    <ion-toolbar color="tertiary">
+      <app-header title="Home Page"></app-header>
+      <ion-grid class="no-padding-grid">
+        <ion-row class="ion-align-items-stretch ion-justify-content-center no-padding-row">
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>Gastos</h6>
+                <p>S./ {{ totalGastos | number:'1.2-2' }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>Ingresos</h6>
+                <p>S./ {{ totalIngresos | number:'1.2-2' }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>Saldo</h6>
+                <p>S./ {{ saldo | number:'1.2-2' }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <div class="recent-records ion-padding">
+      <h4 class="recent-records-title">Registros recientes</h4>
+      <ion-list>
+        <ng-container *ngIf="documents.length > 0; else noRecords">
+          <ion-item *ngFor="let doc of documents" lines="none" class="recent-item" (click)="onItemClick(doc)">
             <ion-label>
-              <h6>Gastos</h6>
-              <p>S./ {{ totalGastos | number:'1.2-2' }}</p>
+              <ion-text [color]="doc.data.type === 'gasto' ? 'danger' : 'success'">
+                {{ doc.data.description }}
+              </ion-text>
+              <p *ngIf="doc.data.fecha; else noDate">
+                {{ doc.data.fecha | date:'dd/MM/yy' }} &nbsp; {{ doc.data.fecha | date:'shortTime' }}
+              </p>
+              <ng-template #noDate>No Date Available</ng-template>
+            </ion-label>
+            <ion-badge slot="end" [color]="doc.data.type === 'gasto' ? 'danger' : 'success'">
+              {{ doc.data.type === 'gasto' ? '-' : '' }}S/ {{ doc.data.monto }}
+            </ion-badge>
+            <ion-icon [name]="doc.data.icon" slot="end" color="tertiary"></ion-icon>
+          </ion-item>
+        </ng-container>
+
+        <ng-template #noRecords>
+          <ion-item lines="none">
+            <ion-label class="ion-text-center">
+              <h6>No tienes registros 🥲 </h6>
             </ion-label>
           </ion-item>
-        </ion-col>
+        </ng-template>
+      </ion-list>
+    </div>
+  </ion-content>
+</ng-container>
 
-        <ion-col size="3" class="ion-text-center no-padding-col">
-          <ion-item lines="none" class="custom-item small-item">
-            <ion-label>
-              <h6>Ingresos</h6>
-              <p>S./ {{ totalIngresos | number:'1.2-2' }}</p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col size="3" class="ion-text-center no-padding-col">
-          <ion-item lines="none" class="custom-item small-item">
-            <ion-label>
-              <h6>Saldo</h6>
-              <p>S./ {{ saldo | number:'1.2-2' }}</p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-header>
+<ng-template #skeletonContent>
+  <!-- Skeleton Loading Content -->
+  <ion-header [translucent]="true">
+    <ion-toolbar color="tertiary">
+      <ion-grid class="no-padding-grid">
+        <ion-row class="ion-align-items-stretch ion-justify-content-center no-padding-row">
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>
+                  <ion-skeleton-text [animated]="true" style="width: 50px;"></ion-skeleton-text>
+                </h6>
+                <p>
+                  <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
 
-<ion-content [fullscreen]="true">
-  <div class="recent-records ion-padding">
-    <h4 class="recent-records-title">Registros recientes</h4>
-    <ion-list>
-      <ion-item *ngFor="let doc of documents" lines="none" class="recent-item" (click)="onItemClick(doc)">
-        <ion-label>
-          <ion-text [color]="doc.data.type === 'gasto' ? 'danger' : 'success'"> {{ doc.data.description }} </ion-text>
-          <p *ngIf="doc.data.fecha; else noDate">
-            {{ doc.data.fecha | date:'dd/MM/yy' }} &nbsp; {{ doc.data.fecha | date:'shortTime' }}
-          </p>
-          <ng-template #noDate>No Date Available</ng-template>
-        </ion-label>
-        <ion-badge slot="end" [color]="doc.data.type === 'gasto' ? 'danger' : 'success'">
-          {{ doc.data.type === 'gasto' ? '-' : '' }}S/ {{ doc.data.monto }}
-        </ion-badge>
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>
+                  <ion-skeleton-text [animated]="true" style="width: 50px;"></ion-skeleton-text>
+                </h6>
+                <p>
+                  <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
 
-        <ion-icon [name]="doc.data.icon" slot="end" color="tertiary"></ion-icon>
-      </ion-item>
-    </ion-list>
-  </div>
-</ion-content>
+          <ion-col size="3" class="ion-text-center no-padding-col">
+            <ion-item lines="none" class="custom-item small-item">
+              <ion-label>
+                <h6>
+                  <ion-skeleton-text [animated]="true" style="width: 50px;"></ion-skeleton-text>
+                </h6>
+                <p>
+                  <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <div class="recent-records ion-padding">
+      <h4 class="recent-records-title">
+        <ion-skeleton-text [animated]="true" style="width: 150px;"></ion-skeleton-text>
+      </h4>
+      <ion-list>
+        <ion-item *ngFor="let i of [1, 2, 3]" lines="none" class="recent-item">
+          <ion-label>
+            <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+          <ion-badge slot="end">
+            <ion-skeleton-text [animated]="true" style="width: 40px;"></ion-skeleton-text>
+          </ion-badge>
+          <ion-icon slot="end">
+            <ion-skeleton-text [animated]="true" style="width: 20px; height: 20px;"></ion-skeleton-text>
+          </ion-icon>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ng-template>

@@ -9,9 +9,10 @@ import { firstValueFrom, Observable } from 'rxjs';
 })
 export class StorageService {
 
+
   constructor(private store: Store) { }
 
-  async addRegistroDocument(data: { tipo: string; monto: string; fecha: Date; description: string , icon: string }) {
+  async addRegistroDocument(data: { tipo: string; monto: string; fecha: Date; description: string, icon: string }) {
     try {
       const user = await firstValueFrom(this.store.select(selectAuthUser));
       if (!user?.uid) {
@@ -22,9 +23,7 @@ export class StorageService {
         uid: user.uid
       };
 
-    console.log(documentData);
-
-      const result = await FirebaseFirestore.addDocument({
+       const result = await FirebaseFirestore.addDocument({
         reference: 'registro',
         data: documentData,
       });
@@ -37,7 +36,7 @@ export class StorageService {
     }
   }
 
-  async editRegistroDocument(data: { tipo: string; monto: string;  }) {
+  async editRegistroDocument(path: string, data: { uid: '', type: '', monto: '', fecha: 0, description: '' }) {
 
     try {
       const user = await firstValueFrom(this.store.select(selectAuthUser));
@@ -50,7 +49,7 @@ export class StorageService {
       };
 
       const result = await FirebaseFirestore.updateDocument({
-        reference: 'registro',
+        reference: path,
         data: documentData,
       });
       return result;

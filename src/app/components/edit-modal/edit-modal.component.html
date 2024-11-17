@@ -13,9 +13,9 @@
   <div class="modal-content">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ ingreso?.data?.description || 'Sin Descripción' }}</ion-card-title>
-        <ion-card-subtitle *ngIf="ingreso?.data?.fecha">
-          Fecha: {{ ingreso?.data?.fecha | date: 'shortDate' }}
+        <ion-card-title>{{ ingreso?.description || 'Sin Descripción' }}</ion-card-title>
+        <ion-card-subtitle *ngIf="ingreso?.fecha">
+          Fecha: {{ ingreso?.fecha | date: 'shortDate' }}
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
