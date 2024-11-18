@@ -23,4 +23,35 @@
   }
 }
 
- 
+.description-container {
+  padding-right: 15px;
+}
+
+.date-info {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #bcbcbc;
+}
+
+.icon-container {
+  text-align: center;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.button-container ion-button {
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 10px;
+}
+
+ion-card {
+  padding: 15px;
+}
+
+.modal-content {
+  gap: 20px;
+}

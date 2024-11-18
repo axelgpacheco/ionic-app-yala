@@ -39,7 +39,17 @@ export class StorageService {
 
 
 
-
+  async deleteRegistroDocument(path: string) {
+    try {
+      const result = await FirebaseFirestore.deleteDocument({
+        reference: path
+      });
+      return result;
+    } catch (error) {
+      console.error('Error al eliminar el documento:', error);
+      throw error;
+    }
+  }
 
 
   async editRegistroDocument(path: string, data: { uid: '', type: '', monto: '', fecha: 0, description: '' }) {
@@ -96,8 +106,6 @@ export class StorageService {
   }
 
   async getBetweenDateDocument(startDate:number,endDate:number): Promise<any> {
-
-
     try {
       const user = await firstValueFrom(this.store.select(selectAuthUser));
       if (!user?.uid) {

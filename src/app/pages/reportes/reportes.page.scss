@@ -1,12 +1,33 @@
-.date-selection {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+
 
 .button-group {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   justify-content: space-between;
+}
+
+.date-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.date-field {
+  margin-bottom: 16px;
+}
+
+.date-preview {
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+  margin-left: 16px;
+}
+
+.button-group ion-button {
+  margin-top: 8px;
+}
+
+ion-text p {
+  margin: 0;
+  font-size: 0.9rem;
 }

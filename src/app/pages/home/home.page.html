@@ -2,7 +2,7 @@
   <!-- Display the actual content -->
   <ion-header [translucent]="true">
     <ion-toolbar color="tertiary">
-      <app-header title="Home Page"></app-header>
+      <app-header title="YALA APP"></app-header>
       <ion-grid class="no-padding-grid">
         <ion-row class="ion-align-items-stretch ion-justify-content-center no-padding-row">
           <ion-col size="3" class="ion-text-center no-padding-col">
@@ -47,7 +47,7 @@
                 {{ doc.data.description }}
               </ion-text>
               <p *ngIf="doc.data.fecha; else noDate">
-                {{ doc.data.fecha | date:'dd/MM/yy' }} &nbsp; {{ doc.data.fecha | date:'shortTime' }}
+                <sub class="custom-date-style"> {{ doc.data.fecha | date:'dd/MM/yy' }} </sub> &nbsp; <sub class="custom-time-style">{{ doc.data.fecha | date:'shortTime' }}</sub>
               </p>
               <ng-template #noDate>No Date Available</ng-template>
             </ion-label>
@@ -68,7 +68,7 @@
       </ion-list>
     </div>
   </ion-content>
-  
+
 </ng-container>
 
 <ng-template #skeletonContent>

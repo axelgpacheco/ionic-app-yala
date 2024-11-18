@@ -18,7 +18,7 @@ export class EditModalComponent {
   monto: number | undefined;
   constructor(private modalController: ModalController, private storageService: StorageService, private toastController: ToastController) { }
 
-  data: any = { uid: '', type: '', monto: '', fecha: 0, description: '' };
+  data: any = { uid: '', type: '', icon :'', monto: '', fecha: 0, description: '' };
 
   closeModal() {
     this.modalController.dismiss();
@@ -63,6 +63,25 @@ export class EditModalComponent {
       console.error('Path is undefined');
     }
 
+    this.closeModal();
+  }
+
+
+
+  deleteRegistro() {
+    if (this.path) {
+      this.storageService.deleteRegistroDocument(this.path)
+        .then((response) => {
+          console.log(response);
+          this.showToast('Registro eliminado', 'warning');
+        })
+        .catch((error) => {
+          this.showToast('Error al eliminar el registro.', 'danger');
+          console.error('Error al eliminar el registro:', error);
+        });
+    } else {
+      console.error('Path is undefined');
+    }
     this.closeModal();
   }
 }

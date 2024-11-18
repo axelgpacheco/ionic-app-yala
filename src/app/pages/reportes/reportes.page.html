@@ -8,7 +8,6 @@
   <ion-card>
     <ion-card-content>
       <div class="date-selection">
-     
         <ion-item>
           <ion-label>INICIO</ion-label>
           <ion-datetime-button datetime="startDatetime"></ion-datetime-button>
@@ -20,15 +19,10 @@
               presentation="date-time"
               [(ngModel)]="startDate"
               (ionChange)="validateDates()"
-              [formatOptions]="{
-                date: { weekday: 'short', month: 'long', day: '2-digit' },
-                time: { hour: '2-digit', minute: '2-digit' }
-              }"
-            ></ion-datetime>
+              [formatOptions]="datetimeFormatOptions">
+            </ion-datetime>
           </ng-template>
         </ion-modal>
-
-
         <ion-item>
           <ion-label>FIN</ion-label>
           <ion-datetime-button datetime="endDatetime"></ion-datetime-button>
@@ -40,22 +34,61 @@
               presentation="date-time"
               [(ngModel)]="endDate"
               (ionChange)="validateDates()"
-              [formatOptions]="{
-                date: { weekday: 'short', month: 'long', day: '2-digit' },
-                time: { hour: '2-digit', minute: '2-digit' }
-              }"
-            ></ion-datetime>
+              [formatOptions]="datetimeFormatOptions">
+            </ion-datetime>
           </ng-template>
         </ion-modal>
-
         <div class="button-group">
           <ion-button expand="full" color="primary" (click)="applyDates()">Aplicar</ion-button>
-          <ion-button expand="full"  color="tertiary" (click)="clearDates()">Limpiar</ion-button>
+          <ion-button expand="full" color="tertiary" (click)="clearDates()">Limpiar</ion-button>
         </div>
         <ion-text color="danger" *ngIf="errorMessage">
           <p>{{ errorMessage }}</p>
         </ion-text>
       </div>
+    </ion-card-content>
+  </ion-card>
+
+
+  <div class="recent-records ion-padding">
+    <h4 class="recent-records-title">Registros recientes</h4>
+    <ion-list>
+      <ng-container *ngIf="registros.length > 0; else noRecords">
+        <ion-item *ngFor="let doc of registros" lines="none" class="recent-item">
+          <ion-label>
+            <ion-text [color]="doc.data.type === 'gasto' ? 'danger' : 'success'">
+              {{ doc.data.description }}
+            </ion-text>
+            <p *ngIf="doc.data.fecha; else noDate">
+              {{ doc.data.fecha | date:'dd/MM/yy' }} &nbsp; {{ doc.data.fecha | date:'shortTime' }}
+            </p>
+            <ng-template #noDate>No Date Available</ng-template>
+          </ion-label>
+          <ion-badge slot="end" [color]="doc.data.type === 'gasto' ? 'danger' : 'success'">
+            {{ doc.data.type === 'gasto' ? '-' : '' }}S/ {{ doc.data.monto }}
+          </ion-badge>
+          <ion-icon [name]="doc.data.icon" slot="end" color="tertiary"></ion-icon>
+        </ion-item>
+      </ng-container>
+
+      <ng-template #noRecords>
+        <ion-item lines="none">
+          <ion-label class="ion-text-center">
+            <h6>No hay registros entre estas fechas 🥲 </h6>
+          </ion-label>
+        </ion-item>
+      </ng-template>
+    </ion-list>
+  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resumen por Categoria</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+    </div>  
     </ion-card-content>
   </ion-card>
 </ion-content>

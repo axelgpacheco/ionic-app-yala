@@ -13,10 +13,21 @@
   <div class="modal-content">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ ingreso?.description || 'Sin Descripción' }}</ion-card-title>
-        <ion-card-subtitle *ngIf="ingreso?.fecha">
-          Fecha: {{ ingreso?.fecha | date: 'shortDate' }}
-        </ion-card-subtitle>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="9" class="description-container">
+              <ion-card-title class="ion-text-wrap" color="danger">
+                {{ ingreso?.description || 'Sin Descripción' }}
+              </ion-card-title>
+              <ion-text *ngIf="ingreso?.fecha" class="date-info">
+                Fecha: {{ ingreso?.fecha | date: 'shortDate' }}
+              </ion-text>
+            </ion-col>
+            <ion-col size="3" class="icon-container">
+              <ion-icon name="medkit-outline" size="large"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-header>
       <ion-card-content>
         <ion-item lines="full">
@@ -35,8 +46,17 @@
       <ion-button
         expand="block"
         shape="round"
+        color="danger"
+        (click)="deleteRegistro()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Eliminar Registro
+      </ion-button>
+      <ion-button
+        expand="block"
+        shape="round"
+        color="primary"
         (click)="editarMonto()">
-        <ion-icon name="save-outline" slot="start"></ion-icon>
+        <ion-icon name="save-outline" slot="end"></ion-icon>
         Actualizar Monto
       </ion-button>
     </div>
