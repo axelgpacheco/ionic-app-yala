@@ -41,13 +41,13 @@
 .custom-item {
   border-radius: 8px;
   text-align: center;
-  width: 100%;
+  width: 120px;
 
 }
 
 .small-item {
   padding: 5px !important;
-  height: 80px;
+  height: 90px;
 }
 
 .custom-item h6 {
@@ -60,7 +60,7 @@
 .custom-item p {
   margin: 0;
   font-size: 12px;
-  color: #666;
+  color: #ffffff;
 }
 
 .padding-span {
@@ -77,4 +77,29 @@
 .custom-date-style{
   font-size: 0.85rem;
   color: rgb(255, 255, 255) ;
+}
+
+
+ion-header {
+  .responsive-grid {
+    @media (max-width: 350px) {
+      ion-row {
+        flex-wrap: wrap;
+      }
+      ion-col {
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin: 5px 0;
+      }
+      .small-item {
+        padding: 5px;
+      }
+      ion-label h6 {
+        font-size: 14px;
+      }
+      ion-label p {
+        font-size: 12px;
+      }
+    }
+  }
 }
